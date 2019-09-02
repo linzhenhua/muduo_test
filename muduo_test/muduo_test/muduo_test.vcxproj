@@ -123,6 +123,85 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\..\bin\.gitignore" />
+    <None Include="..\..\Makefile" />
+    <None Include="..\..\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\muduo\base\AsyncLogging.h" />
+    <ClInclude Include="..\..\include\muduo\base\Atomic.h" />
+    <ClInclude Include="..\..\include\muduo\base\BlockingQueue.h" />
+    <ClInclude Include="..\..\include\muduo\base\BoundedBlockingQueue.h" />
+    <ClInclude Include="..\..\include\muduo\base\Condition.h" />
+    <ClInclude Include="..\..\include\muduo\base\copyable.h" />
+    <ClInclude Include="..\..\include\muduo\base\CountDownLatch.h" />
+    <ClInclude Include="..\..\include\muduo\base\CurrentThread.h" />
+    <ClInclude Include="..\..\include\muduo\base\Date.h" />
+    <ClInclude Include="..\..\include\muduo\base\Exception.h" />
+    <ClInclude Include="..\..\include\muduo\base\FileUtil.h" />
+    <ClInclude Include="..\..\include\muduo\base\GzipFile.h" />
+    <ClInclude Include="..\..\include\muduo\base\LogFile.h" />
+    <ClInclude Include="..\..\include\muduo\base\Logging.h" />
+    <ClInclude Include="..\..\include\muduo\base\LogStream.h" />
+    <ClInclude Include="..\..\include\muduo\base\Mutex.h" />
+    <ClInclude Include="..\..\include\muduo\base\noncopyable.h" />
+    <ClInclude Include="..\..\include\muduo\base\ProcessInfo.h" />
+    <ClInclude Include="..\..\include\muduo\base\Singleton.h" />
+    <ClInclude Include="..\..\include\muduo\base\StringPiece.h" />
+    <ClInclude Include="..\..\include\muduo\base\Thread.h" />
+    <ClInclude Include="..\..\include\muduo\base\ThreadLocal.h" />
+    <ClInclude Include="..\..\include\muduo\base\ThreadLocalSingleton.h" />
+    <ClInclude Include="..\..\include\muduo\base\ThreadPool.h" />
+    <ClInclude Include="..\..\include\muduo\base\Timestamp.h" />
+    <ClInclude Include="..\..\include\muduo\base\TimeZone.h" />
+    <ClInclude Include="..\..\include\muduo\base\Types.h" />
+    <ClInclude Include="..\..\include\muduo\base\WeakCallback.h" />
+    <ClInclude Include="..\..\include\muduo\net\Buffer.h" />
+    <ClInclude Include="..\..\include\muduo\net\Callbacks.h" />
+    <ClInclude Include="..\..\include\muduo\net\Channel.h" />
+    <ClInclude Include="..\..\include\muduo\net\Endian.h" />
+    <ClInclude Include="..\..\include\muduo\net\EventLoop.h" />
+    <ClInclude Include="..\..\include\muduo\net\EventLoopThread.h" />
+    <ClInclude Include="..\..\include\muduo\net\EventLoopThreadPool.h" />
+    <ClInclude Include="..\..\include\muduo\net\http\HttpContext.h" />
+    <ClInclude Include="..\..\include\muduo\net\http\HttpRequest.h" />
+    <ClInclude Include="..\..\include\muduo\net\http\HttpResponse.h" />
+    <ClInclude Include="..\..\include\muduo\net\http\HttpServer.h" />
+    <ClInclude Include="..\..\include\muduo\net\InetAddress.h" />
+    <ClInclude Include="..\..\include\muduo\net\inspect\Inspector.h" />
+    <ClInclude Include="..\..\include\muduo\net\protobuf\BufferStream.h" />
+    <ClInclude Include="..\..\include\muduo\net\protobuf\ProtobufCodecLite.h" />
+    <ClInclude Include="..\..\include\muduo\net\protorpc\rpc.pb.h" />
+    <ClInclude Include="..\..\include\muduo\net\protorpc\RpcChannel.h" />
+    <ClInclude Include="..\..\include\muduo\net\protorpc\RpcCodec.h" />
+    <ClInclude Include="..\..\include\muduo\net\protorpc\RpcServer.h" />
+    <ClInclude Include="..\..\include\muduo\net\TcpClient.h" />
+    <ClInclude Include="..\..\include\muduo\net\TcpConnection.h" />
+    <ClInclude Include="..\..\include\muduo\net\TcpServer.h" />
+    <ClInclude Include="..\..\include\muduo\net\TimerId.h" />
+    <ClInclude Include="..\..\src\chargen\chargen.h" />
+    <ClInclude Include="..\..\src\chat\codec.h" />
+    <ClInclude Include="..\..\src\daytime\daytime.h" />
+    <ClInclude Include="..\..\src\discard\discard.h" />
+    <ClInclude Include="..\..\src\echo\echo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\lib\libmuduo_base.a" />
+    <Library Include="..\..\lib\libmuduo_http.a" />
+    <Library Include="..\..\lib\libmuduo_inspect.a" />
+    <Library Include="..\..\lib\libmuduo_net.a" />
+    <Library Include="..\..\lib\libmuduo_protobuf_codec.a" />
+    <Library Include="..\..\lib\libmuduo_protorpc.a" />
+    <Library Include="..\..\lib\libmuduo_protorpc_wire.a" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\chargen\chargen.cc" />
+    <ClCompile Include="..\..\src\chat\client.cc" />
+    <ClCompile Include="..\..\src\chat\server.cc" />
+    <ClCompile Include="..\..\src\daytime\daytime.cc" />
+    <ClCompile Include="..\..\src\discard\discard.cc" />
+    <ClCompile Include="..\..\src\echo\echo.cc" />
+    <ClCompile Include="..\..\src\main.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

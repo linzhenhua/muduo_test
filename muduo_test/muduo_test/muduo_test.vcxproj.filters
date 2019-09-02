@@ -1,17 +1,276 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="bin">
+      <UniqueIdentifier>{a796f85f-fa7b-4f8a-a3c0-68b89f46441c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="include">
+      <UniqueIdentifier>{e4413a1b-a38e-45c5-b1b5-79c89dfc7c8d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="lib">
+      <UniqueIdentifier>{2a9de4b7-e897-4fa2-9aa1-8830290f7d18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{2566fdb9-cac0-4998-ae15-39892364e939}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\muduo">
+      <UniqueIdentifier>{9d1a13ea-311a-4412-9871-54a410f37724}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\muduo\base">
+      <UniqueIdentifier>{bc03f1d5-54b6-498e-ac6c-0b0a5e40b51a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\muduo\net">
+      <UniqueIdentifier>{d88d704e-ecb8-4fd3-aad1-11a51bf7f925}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\muduo\net\http">
+      <UniqueIdentifier>{361fbcc0-7894-4489-890a-8acf8a8d129a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\muduo\net\inspect">
+      <UniqueIdentifier>{298a283a-809d-4416-bc36-b2f6b709d5a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\muduo\net\protobuf">
+      <UniqueIdentifier>{34077314-8d09-4ae5-be84-0603949c89a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\muduo\net\protorpc">
+      <UniqueIdentifier>{f4e62051-5740-4ae4-8284-d6447d89b85a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\chargen">
+      <UniqueIdentifier>{bce5c55a-c43d-4553-bc66-018fcd1bc2b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\chat">
+      <UniqueIdentifier>{56f41e4b-61f6-4b37-a6b7-2e0806d8d098}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\daytime">
+      <UniqueIdentifier>{c0771369-6a32-4a6f-a717-fedd75c024b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\discard">
+      <UniqueIdentifier>{9692776a-45ee-4f61-8dbf-fb3dd58b4c6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\echo">
+      <UniqueIdentifier>{18c84990-97ed-41e9-ac49-abcf15055988}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Makefile" />
+    <None Include="..\..\README.md" />
+    <None Include="..\..\bin\.gitignore">
+      <Filter>bin</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\muduo\base\AsyncLogging.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\Atomic.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\BlockingQueue.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\BoundedBlockingQueue.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\Condition.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\copyable.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\CountDownLatch.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\CurrentThread.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\Date.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\Exception.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\FileUtil.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\GzipFile.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\LogFile.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\Logging.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\LogStream.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\Mutex.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\noncopyable.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\ProcessInfo.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\Singleton.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\StringPiece.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\Thread.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\ThreadLocal.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\ThreadLocalSingleton.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\ThreadPool.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\Timestamp.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\TimeZone.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\Types.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\base\WeakCallback.h">
+      <Filter>include\muduo\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\http\HttpContext.h">
+      <Filter>include\muduo\net\http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\http\HttpRequest.h">
+      <Filter>include\muduo\net\http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\http\HttpResponse.h">
+      <Filter>include\muduo\net\http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\http\HttpServer.h">
+      <Filter>include\muduo\net\http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\inspect\Inspector.h">
+      <Filter>include\muduo\net\inspect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\protorpc\rpc.pb.h">
+      <Filter>include\muduo\net\protorpc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\protorpc\RpcChannel.h">
+      <Filter>include\muduo\net\protorpc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\protorpc\RpcCodec.h">
+      <Filter>include\muduo\net\protorpc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\protorpc\RpcServer.h">
+      <Filter>include\muduo\net\protorpc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\protobuf\BufferStream.h">
+      <Filter>include\muduo\net\protobuf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\protobuf\ProtobufCodecLite.h">
+      <Filter>include\muduo\net\protobuf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\Buffer.h">
+      <Filter>include\muduo\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\Callbacks.h">
+      <Filter>include\muduo\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\Channel.h">
+      <Filter>include\muduo\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\Endian.h">
+      <Filter>include\muduo\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\EventLoop.h">
+      <Filter>include\muduo\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\EventLoopThread.h">
+      <Filter>include\muduo\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\EventLoopThreadPool.h">
+      <Filter>include\muduo\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\InetAddress.h">
+      <Filter>include\muduo\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\TcpClient.h">
+      <Filter>include\muduo\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\TcpConnection.h">
+      <Filter>include\muduo\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\TcpServer.h">
+      <Filter>include\muduo\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\muduo\net\TimerId.h">
+      <Filter>include\muduo\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\chargen\chargen.h">
+      <Filter>src\chargen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\chat\codec.h">
+      <Filter>src\chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\daytime\daytime.h">
+      <Filter>src\daytime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\discard\discard.h">
+      <Filter>src\discard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\echo\echo.h">
+      <Filter>src\echo</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\lib\libmuduo_base.a">
+      <Filter>lib</Filter>
+    </Library>
+    <Library Include="..\..\lib\libmuduo_http.a">
+      <Filter>lib</Filter>
+    </Library>
+    <Library Include="..\..\lib\libmuduo_inspect.a">
+      <Filter>lib</Filter>
+    </Library>
+    <Library Include="..\..\lib\libmuduo_net.a">
+      <Filter>lib</Filter>
+    </Library>
+    <Library Include="..\..\lib\libmuduo_protobuf_codec.a">
+      <Filter>lib</Filter>
+    </Library>
+    <Library Include="..\..\lib\libmuduo_protorpc.a">
+      <Filter>lib</Filter>
+    </Library>
+    <Library Include="..\..\lib\libmuduo_protorpc_wire.a">
+      <Filter>lib</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\main.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\chargen\chargen.cc">
+      <Filter>src\chargen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\chat\client.cc">
+      <Filter>src\chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\chat\server.cc">
+      <Filter>src\chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\daytime\daytime.cc">
+      <Filter>src\daytime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\discard\discard.cc">
+      <Filter>src\discard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\echo\echo.cc">
+      <Filter>src\echo</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
