@@ -184,6 +184,7 @@
     <ClInclude Include="..\..\src\daytime\daytime.h" />
     <ClInclude Include="..\..\src\discard\discard.h" />
     <ClInclude Include="..\..\src\echo\echo.h" />
+    <ClInclude Include="..\..\src\websocket\websocket.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\libmuduo_base.a" />
@@ -202,6 +203,7 @@
     <ClCompile Include="..\..\src\discard\discard.cc" />
     <ClCompile Include="..\..\src\echo\echo.cc" />
     <ClCompile Include="..\..\src\main.cc" />
+    <ClCompile Include="..\..\src\websocket\websocket.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

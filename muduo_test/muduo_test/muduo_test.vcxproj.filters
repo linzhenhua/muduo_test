@@ -49,6 +49,9 @@
     <Filter Include="src\echo">
       <UniqueIdentifier>{18c84990-97ed-41e9-ac49-abcf15055988}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\websocket">
+      <UniqueIdentifier>{356b6a7d-c062-4212-b45b-3d8c42daae8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Makefile" />
@@ -226,6 +229,9 @@
     <ClInclude Include="..\..\src\echo\echo.h">
       <Filter>src\echo</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\websocket\websocket.h">
+      <Filter>src\websocket</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\libmuduo_base.a">
@@ -271,6 +277,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\echo\echo.cc">
       <Filter>src\echo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\websocket\websocket.cc">
+      <Filter>src\websocket</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

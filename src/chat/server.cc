@@ -16,9 +16,9 @@
 //public:
 //	ChatServer(EventLoop* loop, const InetAddress& listenAddr) :
 //		server_(loop, listenAddr, "ChatServer"),
-//		codec_(std::bind(&ChatServer::onStringMessage, this, _1, _2, _3)) {
-//		server_.setConnectionCallback(std::bind(&ChatServer::onConnection, this, _1));
-//		server_.setMessageCallback(std::bind(&LengthHeaderCodec::onMessage, this, &codec_, 1，_2, _3));
+//		codec_(std::bind(&ChatServer::onStringMessage, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)) {
+//		server_.setConnectionCallback(std::bind(&ChatServer::onConnection, this, std::placeholders::_1));
+//		server_.setMessageCallback(std::bind(&LengthHeaderCodec::onMessage, this, &codec_, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 //	}
 //
 //	void start() {
