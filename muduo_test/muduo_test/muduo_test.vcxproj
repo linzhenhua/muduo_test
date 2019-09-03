@@ -76,6 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -184,7 +185,9 @@
     <ClInclude Include="..\..\src\daytime\daytime.h" />
     <ClInclude Include="..\..\src\discard\discard.h" />
     <ClInclude Include="..\..\src\echo\echo.h" />
+    <ClInclude Include="..\..\src\websocket\sha1.h" />
     <ClInclude Include="..\..\src\websocket\websocket.h" />
+    <ClInclude Include="..\..\src\websocket\ws_define.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\libmuduo_base.a" />

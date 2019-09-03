@@ -232,6 +232,12 @@
     <ClInclude Include="..\..\src\websocket\websocket.h">
       <Filter>src\websocket</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\websocket\ws_define.h">
+      <Filter>src\websocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\websocket\sha1.h">
+      <Filter>src\websocket</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\libmuduo_base.a">
