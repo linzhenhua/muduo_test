@@ -206,6 +206,7 @@
     <ClCompile Include="..\..\src\discard\discard.cc" />
     <ClCompile Include="..\..\src\echo\echo.cc" />
     <ClCompile Include="..\..\src\main.cc" />
+    <ClCompile Include="..\..\src\websocket\utilities_impl.cc" />
     <ClCompile Include="..\..\src\websocket\websocket.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

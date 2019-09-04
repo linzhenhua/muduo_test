@@ -287,5 +287,8 @@
     <ClCompile Include="..\..\src\websocket\websocket.cc">
       <Filter>src\websocket</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\websocket\utilities_impl.cc">
+      <Filter>src\websocket</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
