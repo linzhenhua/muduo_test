@@ -33,6 +33,8 @@ under the same license as the original, which is listed below.
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#pragma one
+
 namespace sha1 {
 
 	namespace { // local
