@@ -185,6 +185,9 @@
     <ClInclude Include="..\..\src\daytime\daytime.h" />
     <ClInclude Include="..\..\src\discard\discard.h" />
     <ClInclude Include="..\..\src\echo\echo.h" />
+    <ClInclude Include="..\..\src\websocket\http\parser.h" />
+    <ClInclude Include="..\..\src\websocket\http\request.h" />
+    <ClInclude Include="..\..\src\websocket\http\response.h" />
     <ClInclude Include="..\..\src\websocket\sha1.h" />
     <ClInclude Include="..\..\src\websocket\utilities.h" />
     <ClInclude Include="..\..\src\websocket\websocket.h" />
@@ -206,6 +209,9 @@
     <ClCompile Include="..\..\src\discard\discard.cc" />
     <ClCompile Include="..\..\src\echo\echo.cc" />
     <ClCompile Include="..\..\src\main.cc" />
+    <ClCompile Include="..\..\src\websocket\http\parser.cc" />
+    <ClCompile Include="..\..\src\websocket\http\request.cc" />
+    <ClCompile Include="..\..\src\websocket\http\response.cc" />
     <ClCompile Include="..\..\src\websocket\utilities.cc" />
     <ClCompile Include="..\..\src\websocket\websocket.cc" />
   </ItemGroup>

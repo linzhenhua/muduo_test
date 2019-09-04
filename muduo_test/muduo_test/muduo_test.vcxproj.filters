@@ -52,6 +52,9 @@
     <Filter Include="src\websocket">
       <UniqueIdentifier>{356b6a7d-c062-4212-b45b-3d8c42daae8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\websocket\http">
+      <UniqueIdentifier>{2bc1b991-e3fc-4fa1-a62d-06036f8418c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Makefile" />
@@ -238,6 +241,15 @@
     <ClInclude Include="..\..\src\websocket\utilities.h">
       <Filter>src\websocket</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\websocket\http\parser.h">
+      <Filter>src\websocket\http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\websocket\http\request.h">
+      <Filter>src\websocket\http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\websocket\http\response.h">
+      <Filter>src\websocket\http</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\libmuduo_base.a">
@@ -289,6 +301,15 @@
     </ClCompile>
     <ClCompile Include="..\..\src\websocket\utilities.cc">
       <Filter>src\websocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\websocket\http\parser.cc">
+      <Filter>src\websocket\http</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\websocket\http\request.cc">
+      <Filter>src\websocket\http</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\websocket\http\response.cc">
+      <Filter>src\websocket\http</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
