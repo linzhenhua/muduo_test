@@ -250,6 +250,9 @@
     <ClInclude Include="..\..\src\websocket\http\response.h">
       <Filter>src\websocket\http</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\websocket\http\constants.h">
+      <Filter>src\websocket\http</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\libmuduo_base.a">

@@ -185,6 +185,7 @@
     <ClInclude Include="..\..\src\daytime\daytime.h" />
     <ClInclude Include="..\..\src\discard\discard.h" />
     <ClInclude Include="..\..\src\echo\echo.h" />
+    <ClInclude Include="..\..\src\websocket\http\constants.h" />
     <ClInclude Include="..\..\src\websocket\http\parser.h" />
     <ClInclude Include="..\..\src\websocket\http\request.h" />
     <ClInclude Include="..\..\src\websocket\http\response.h" />
