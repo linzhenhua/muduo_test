@@ -186,7 +186,7 @@
     <ClInclude Include="..\..\src\discard\discard.h" />
     <ClInclude Include="..\..\src\echo\echo.h" />
     <ClInclude Include="..\..\src\websocket\sha1.h" />
-    <ClInclude Include="..\..\src\websocket\utils.h" />
+    <ClInclude Include="..\..\src\websocket\utilities.h" />
     <ClInclude Include="..\..\src\websocket\websocket.h" />
   </ItemGroup>
   <ItemGroup>
@@ -206,7 +206,7 @@
     <ClCompile Include="..\..\src\discard\discard.cc" />
     <ClCompile Include="..\..\src\echo\echo.cc" />
     <ClCompile Include="..\..\src\main.cc" />
-    <ClCompile Include="..\..\src\websocket\utilities_impl.cc" />
+    <ClCompile Include="..\..\src\websocket\utilities.cc" />
     <ClCompile Include="..\..\src\websocket\websocket.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

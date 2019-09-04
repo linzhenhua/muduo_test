@@ -235,7 +235,7 @@
     <ClInclude Include="..\..\src\websocket\sha1.h">
       <Filter>src\websocket</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\websocket\utils.h">
+    <ClInclude Include="..\..\src\websocket\utilities.h">
       <Filter>src\websocket</Filter>
     </ClInclude>
   </ItemGroup>
@@ -287,7 +287,7 @@
     <ClCompile Include="..\..\src\websocket\websocket.cc">
       <Filter>src\websocket</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\websocket\utilities_impl.cc">
+    <ClCompile Include="..\..\src\websocket\utilities.cc">
       <Filter>src\websocket</Filter>
     </ClCompile>
   </ItemGroup>
