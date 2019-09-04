@@ -232,10 +232,10 @@
     <ClInclude Include="..\..\src\websocket\websocket.h">
       <Filter>src\websocket</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\websocket\ws_define.h">
+    <ClInclude Include="..\..\src\websocket\sha1.h">
       <Filter>src\websocket</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\websocket\sha1.h">
+    <ClInclude Include="..\..\src\websocket\utils.h">
       <Filter>src\websocket</Filter>
     </ClInclude>
   </ItemGroup>

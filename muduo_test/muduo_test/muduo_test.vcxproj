@@ -186,8 +186,8 @@
     <ClInclude Include="..\..\src\discard\discard.h" />
     <ClInclude Include="..\..\src\echo\echo.h" />
     <ClInclude Include="..\..\src\websocket\sha1.h" />
+    <ClInclude Include="..\..\src\websocket\utils.h" />
     <ClInclude Include="..\..\src\websocket\websocket.h" />
-    <ClInclude Include="..\..\src\websocket\ws_define.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\libmuduo_base.a" />

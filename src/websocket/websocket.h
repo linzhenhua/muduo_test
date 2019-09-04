@@ -1,5 +1,5 @@
-#ifndef WEBSOCKET_H
-#define WEBSOCKET_H
+#ifndef _WEBSOCKET_H_
+#define _WEBSOCKET_H_
 
 #include <arpa/inet.h>
 
@@ -9,7 +9,7 @@
 #include "sha1.h"
 
 namespace websocket {
-	class websocket {
+	class websocketImpl {
 	public:
 
 	private:
