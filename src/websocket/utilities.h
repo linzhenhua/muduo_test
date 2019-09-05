@@ -229,4 +229,20 @@ namespace utility {
 	 */
 	std::string to_hex(char const *input, size_t length);
 
+	class noncopyable {
+	public:
+		noncopyable(const noncopyable &) = delete;
+		void operator=(const noncopyable &) = delete;
+
+	protected:
+		noncopyable() = default;
+		~noncopyable() = default;
+	};
+
+	class copyable {
+	protected:
+		copyable() = default;
+		~copyable() = default;
+	};
+
 } // namespace utility

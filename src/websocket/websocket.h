@@ -34,6 +34,8 @@
 #include <netinet/in.h>
 
 #include "utilities.h"
+#include "http/request.h"
+#include "http/response.h"
 
 namespace websocket {
 	/// Data structures and utility functions for manipulating WebSocket frames
@@ -848,4 +850,43 @@ namespace websocket {
 		}
 
 	} // namespace frame
+
+	//websocket客户端
+	class WebSocketClient : public utility::noncopyable {
+	public:
+		using type = http::parser::request;
+
+		WebSocketClient():m_request(){}
+
+		/*
+		 * @param packet必须符合http头请求格式，否则抛异常（抛异常说明有bugs，需要修复）
+		*/
+		size_t consume(const std::string &packet);
+
+		//解析响应握手包
+		bool parseReponseHandshake(std::string responseData);
+
+	private:
+		type m_request;
+	};
+
+	//解析websocket的类
+	class WebSocketServer {
+	public:
+		WebSocketServer() {}
+
+		//解析请求握手
+		bool parseRequestHandshake(std::string requestData);  //string可以内部move
+
+		
+
+		//解析websocket的基础头部信息
+		bool parseBasicHeader();
+
+
+
+	private:
+		bool isRequestHandshake; //标记是否是请求握手，防止客户端多次发送握手包
+		http::parser::response response;
+	};
 }

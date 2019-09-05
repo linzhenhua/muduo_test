@@ -25,8 +25,6 @@
  *
  */
 
-#pragma one
-
 #include <algorithm>
 #include <cstdlib>
 #include <istream>

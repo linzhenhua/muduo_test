@@ -25,8 +25,6 @@
  *
  */
 
-#pragma one
-
 #include "utilities.h"
 
 namespace utility {
