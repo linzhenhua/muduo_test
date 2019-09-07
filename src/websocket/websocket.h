@@ -30,12 +30,20 @@
 #include <string>
 #include <algorithm>
 #include <system_error>
+#include <functional>
 
 #include <netinet/in.h>
 
 #include "utilities.h"
 #include "http/request.h"
 #include "http/response.h"
+
+#include "../../include/muduo/net/TcpClient.h"
+#include "../../include/muduo/net/EventLoop.h"
+#include "../../include/muduo/net/InetAddress.h"
+#include "../../include/muduo/net/Buffer.h"
+#include "../../include/muduo/net/Callbacks.h"
+#include "../../include/muduo/base/Timestamp.h"
 
 namespace websocket {
 	/// Data structures and utility functions for manipulating WebSocket frames
@@ -856,18 +864,48 @@ namespace websocket {
 	public:
 		using type = http::parser::request;
 
-		WebSocketClient():m_request(){}
+		WebSocketClient(muduo::net::EventLoop *loop, const muduo::net::InetAddress &addr)
+			: m_request()
+			, m_loop(loop)
+			, m_client(loop, addr, "WebSocketClient")
+		{
+			using namespace std::placeholders;
+			//设置回调函数
+			m_client.setConnectionCallback(std::bind(&WebSocketClient::onConnection, this, _1));
+			m_client.setMessageCallback(std::bind(&WebSocketClient::onMessage, this, _1, _2, _3));
+		}
+
+	private:
+		//建立连接成功时的回调函数
+		void onConnection(const muduo::net::TcpConnectionPtr& conn);
+
+		//收到消息时的回调函数
+		void onMessage(const muduo::net::TcpConnectionPtr& conn, muduo::net::Buffer* buf, muduo::Timestamp time);
 
 		/*
+		 * 构造微博socket的http请求握手包
 		 * @param packet必须符合http头请求格式，否则抛异常（抛异常说明有bugs，需要修复）
+		 * @return 处理的字节数
 		*/
-		size_t consume(const std::string &packet);
+		size_t constructRequestPacket(const std::string &packet);
+
+		//发送请求握手包
+		bool sendRequestHandshake();
 
 		//解析响应握手包
 		bool parseReponseHandshake(std::string responseData);
 
+		//构造websocket包
+		bool constructWebSocketPacket();
+
+		//解析websocket包
+		bool parseWebSocketPacket();
+
+
 	private:
 		type m_request;
+		muduo::net::EventLoop *m_loop;
+		muduo::net::TcpClient m_client;
 	};
 
 	//解析websocket的类
