@@ -883,7 +883,7 @@ namespace websocket {
 		void onMessage(const muduo::net::TcpConnectionPtr& conn, muduo::net::Buffer* buf, muduo::Timestamp time);
 
 		/*
-		 * 构造微博socket的http请求握手包
+		 * 构造websocket的http请求握手包
 		 * @param packet必须符合http头请求格式，否则抛异常（抛异常说明有bugs，需要修复）
 		 * @return 处理的字节数
 		*/
@@ -909,7 +909,7 @@ namespace websocket {
 	};
 
 	//解析websocket的类
-	class WebSocketServer {
+	class WebSocketServer : public utility::noncopyable {
 	public:
 		WebSocketServer() {}
 
