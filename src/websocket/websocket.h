@@ -876,6 +876,8 @@ namespace websocket {
 			m_client.setMessageCallback(std::bind(&WebSocketClient::onMessage, this, _1, _2, _3));
 		}
 
+		void start();
+
 	private:
 		//建立连接成功时的回调函数
 		void onConnection(const muduo::net::TcpConnectionPtr& conn);
@@ -902,7 +904,6 @@ namespace websocket {
 		//解析websocket包
 		bool parseWebSocketPacket();
 
-
 	private:
 		type m_request;
 		muduo::net::EventLoop *m_loop;
@@ -925,6 +926,8 @@ namespace websocket {
 			m_server.setConnectionCallback(std::bind(&WebSocketServer::onConnection, this, _1));
 			m_server.setMessageCallback(std::bind(&WebSocketServer::onMessage, this, _1, _2, _3));
 		}
+
+		void start();
 
 	private:
 		//建立连接成功时的回调函数
