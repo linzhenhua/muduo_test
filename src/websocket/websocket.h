@@ -39,6 +39,7 @@
 #include "http/response.h"
 
 #include "../../include/muduo/net/TcpClient.h"
+#include "../../include/muduo/net/TcpServer.h"
 #include "../../include/muduo/net/EventLoop.h"
 #include "../../include/muduo/net/InetAddress.h"
 #include "../../include/muduo/net/Buffer.h"
@@ -911,12 +912,29 @@ namespace websocket {
 	//解析websocket的类
 	class WebSocketServer : public utility::noncopyable {
 	public:
-		WebSocketServer() {}
+		using type = http::parser::response;
+
+		WebSocketServer(muduo::net::EventLoop *loop, const muduo::net::InetAddress &addr) 
+		: m_server(loop, addr, "WebSocketServer")
+		, m_isRequestHandshake(false)
+		, m_response()
+		, m_loop(loop)
+		{
+			using namespace std::placeholders;
+			//设置回调函数
+			m_server.setConnectionCallback(std::bind(&WebSocketServer::onConnection, this, _1));
+			m_server.setMessageCallback(std::bind(&WebSocketServer::onMessage, this, _1, _2, _3));
+		}
+
+	private:
+		//建立连接成功时的回调函数
+		void onConnection(const muduo::net::TcpConnectionPtr &conn);
+
+		//收到消息时的回调函数
+		void onMessage(const muduo::net::TcpConnectionPtr &conn, muduo::net::Buffer *buf, muduo::Timestamp time);
 
 		//解析请求握手
 		bool parseRequestHandshake(std::string requestData);  //string可以内部move
-
-		
 
 		//解析websocket的基础头部信息
 		bool parseBasicHeader();
@@ -924,7 +942,9 @@ namespace websocket {
 
 
 	private:
-		bool isRequestHandshake; //标记是否是请求握手，防止客户端多次发送握手包
-		http::parser::response response;
+		bool m_isRequestHandshake; //标记是否是请求握手，防止客户端多次发送握手包
+		type m_response;
+		muduo::net::EventLoop *m_loop;
+		muduo::net::TcpServer m_server;
 	};
 }

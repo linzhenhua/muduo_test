@@ -33,6 +33,22 @@ namespace websocket {
 	bool WebSocketClient::parseWebSocketPacket() {
 
 	}
+
+	void WebSocketServer::onConnection(const muduo::net::TcpConnectionPtr &conn) {
+
+	}
+
+	void WebSocketServer::onMessage(const muduo::net::TcpConnectionPtr &conn, muduo::net::Buffer *buf, muduo::Timestamp time) {
+
+	}
+
+	bool WebSocketServer::parseRequestHandshake(std::string requestData) {
+
+	}
+
+	bool WebSocketServer::parseBasicHeader() {
+
+	}
 }
 
 
