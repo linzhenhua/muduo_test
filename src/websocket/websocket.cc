@@ -1,5 +1,5 @@
 #include <functional>
-#include <string>
+#include <functional>
 
 #include "websocket.h"
 #include "../../include/muduo/base/Logging.h"
@@ -43,7 +43,19 @@ namespace websocket {
 
 	}
 
+	WebSocketServer::WebSocketServer(muduo::net::EventLoop *loop, const muduo::net::InetAddress &addr)
+		: m_isRequestHandshake(false)
+		//, m_response()  //这一行加也行，不加也行
+		, m_loop(loop) 
+		, m_server(loop, addr, "WebSocketServer") {
+		using namespace std::placeholders;
+		//设置回调函数
+		m_server.setConnectionCallback(std::bind(&WebSocketServer::onConnection, this, _1));
+		m_server.setMessageCallback(std::bind(&WebSocketServer::onMessage, this, _1, _2, _3));
+	}
+
 	void WebSocketServer::onConnection(const muduo::net::TcpConnectionPtr &conn) {
+		//建立连接时，只是简单的打印端口信息
 		LOG_TRACE << conn->peerAddress().toIpPort() << " -> "
 			<< conn->localAddress().toIpPort() << " is "
 			<< (conn->connected() ? "UP" : "DOWN");
@@ -52,11 +64,14 @@ namespace websocket {
 
 	void WebSocketServer::onMessage(const muduo::net::TcpConnectionPtr &conn, 
 									muduo::net::Buffer *buf, muduo::Timestamp time) {
+		if (buf->findCRLF() != nullptr) {
+			buf->retrieveAll();
+		}
+
+		//握手包分包策略：\r\n
 		//需要判断是握手包还是websokcet包
-		if (true) {
+		if () {
 			m_isRequestHandshake = true;
-
-
 		} else {
 
 		}

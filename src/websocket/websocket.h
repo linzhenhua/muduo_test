@@ -30,7 +30,6 @@
 #include <string>
 #include <algorithm>
 #include <system_error>
-#include <functional>
 
 #include <netinet/in.h>
 
@@ -863,10 +862,10 @@ namespace websocket {
 	//websocket客户端
 	class WebSocketClient : public utility::noncopyable {
 	public:
-		using type = http::parser::request;
+		using type = http::parser::response;
 
 		WebSocketClient(muduo::net::EventLoop *loop, const muduo::net::InetAddress &addr)
-			: m_request()
+			: m_response()
 			, m_loop(loop)
 			, m_client(loop, addr, "WebSocketClient")
 		{
@@ -905,7 +904,7 @@ namespace websocket {
 		bool parseWebSocketPacket();
 
 	private:
-		type m_request;
+		type m_response;
 		muduo::net::EventLoop *m_loop;
 		muduo::net::TcpClient m_client;
 	};
@@ -913,19 +912,9 @@ namespace websocket {
 	//解析websocket的类
 	class WebSocketServer : public utility::noncopyable {
 	public:
-		using type = http::parser::response;
+		using type = http::parser::request;
 
-		WebSocketServer(muduo::net::EventLoop *loop, const muduo::net::InetAddress &addr) 
-		: m_server(loop, addr, "WebSocketServer")
-		, m_isRequestHandshake(false)
-		, m_response()
-		, m_loop(loop)
-		{
-			using namespace std::placeholders;
-			//设置回调函数
-			m_server.setConnectionCallback(std::bind(&WebSocketServer::onConnection, this, _1));
-			m_server.setMessageCallback(std::bind(&WebSocketServer::onMessage, this, _1, _2, _3));
-		}
+		WebSocketServer(muduo::net::EventLoop *loop, const muduo::net::InetAddress &addr);
 
 		void start();
 
@@ -946,7 +935,7 @@ namespace websocket {
 
 	private:
 		bool m_isRequestHandshake; //标记是否是请求握手，防止客户端多次发送握手包
-		type m_response;
+		type m_request;
 		muduo::net::EventLoop *m_loop;
 		muduo::net::TcpServer m_server;
 	};
