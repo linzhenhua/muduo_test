@@ -13,7 +13,9 @@ SRCS_C = $(foreach dir, $(SRCS_DIR), $(wildcard $(dir)/*.c))
 SRCS_CPP = $(foreach dir, $(SRCS_DIR), $(wildcard $(dir)/*.cc))
 OBJS = $(patsubst %.cc, %.o, $(SRCS_CPP)) $(patsubst %.c, %.o, $(SRCS_C))
 
-CFLAGS =-std=c++17 -g -Wall -O2
+CFLAGS =-std=c++17 -g -Wall -Wextra -Werror -Wconversion -Wno-unused-parameter \
+-Wold-style-cast -Woverloaded-virtual -Wpointer-arith -Wshadow -Wwrite-strings \
+-march=native 
 
 all: $(TARGET)
 
