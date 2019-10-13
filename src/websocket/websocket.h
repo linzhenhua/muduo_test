@@ -864,16 +864,7 @@ namespace websocket {
 	public:
 		using type = http::parser::response;
 
-		WebSocketClient(muduo::net::EventLoop *loop, const muduo::net::InetAddress &addr)
-			: m_response()
-			, m_loop(loop)
-			, m_client(loop, addr, "WebSocketClient")
-		{
-			using namespace std::placeholders;
-			//设置回调函数
-			m_client.setConnectionCallback(std::bind(&WebSocketClient::onConnection, this, _1));
-			m_client.setMessageCallback(std::bind(&WebSocketClient::onMessage, this, _1, _2, _3));
-		}
+		WebSocketClient(muduo::net::EventLoop *loop, const muduo::net::InetAddress &addr);
 
 		void start();
 
@@ -925,13 +916,24 @@ namespace websocket {
 		//收到消息时的回调函数
 		void onMessage(const muduo::net::TcpConnectionPtr &conn, muduo::net::Buffer *buf, muduo::Timestamp time);
 
-		//解析请求握手
+		//解析请求握手包
 		bool parseRequestHandshake(std::string requestData);  //string可以内部move
 
-		//解析websocket的基础头部信息
-		bool parseBasicHeader();
+		/*
+		* 构造websocket的http请求握手包
+		* @param packet必须符合http头请求格式，否则抛异常（抛异常说明有bugs，需要修复）
+		* @return 处理的字节数
+		*/
+		size_t constructResponsePacket(const std::string &packet);
 
+		//发送响应握手包
+		bool sendResponseHandshake();
 
+		//构造websocket包
+		bool constructWebSocketPacket();
+
+		//解析websocket包
+		bool parseWebSocketPacket();
 
 	private:
 		bool m_isRequestHandshake; //标记是否是请求握手，防止客户端多次发送握手包

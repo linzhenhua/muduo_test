@@ -7,6 +7,16 @@
 
 namespace websocket {
 
+	WebSocketClient::WebSocketClient(muduo::net::EventLoop *loop, const muduo::net::InetAddress &addr)
+		: m_response()
+		, m_loop(loop)
+		, m_client(loop, addr, "WebSocketClient") {
+		using namespace std::placeholders;
+		//设置回调函数
+		m_client.setConnectionCallback(std::bind(&WebSocketClient::onConnection, this, _1));
+		m_client.setMessageCallback(std::bind(&WebSocketClient::onMessage, this, _1, _2, _3));
+	}
+
 	void WebSocketClient::onConnection(const muduo::net::TcpConnectionPtr &conn) {
 		LOG_TRACE << conn->peerAddress().toIpPort() << " -> "
 			<< conn->localAddress().toIpPort() << " is "
@@ -77,17 +87,29 @@ namespace websocket {
 		}
 	}
 
+	void WebSocketServer::start() {
+		LOG_INFO << "WebSocketServer start.";
+		m_server.start();
+	}
+
 	bool WebSocketServer::parseRequestHandshake(std::string requestData) {
 
 	}
 
-	bool WebSocketServer::parseBasicHeader() {
+	size_t WebSocketServer::constructResponsePacket(const std::string &packet) {
 
 	}
 
-	void WebSocketServer::start() {
-		LOG_INFO << "WebSocketServer start.";
-		m_server.start();
+	bool WebSocketServer::sendResponseHandshake() {
+
+	}
+
+	bool WebSocketServer::constructWebSocketPacket() {
+
+	}
+
+	bool WebSocketServer::parseWebSocketPacket() {
+
 	}
 }
 
