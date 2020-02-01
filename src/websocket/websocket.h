@@ -862,7 +862,8 @@ namespace websocket {
 	//websocket¿Í»§¶Ë
 	class WebSocketClient : public utility::noncopyable {
 	public:
-		using type = http::parser::response;
+		using responseType = http::parser::response;
+		using requestType = http::parser::request;
 
 		WebSocketClient(muduo::net::EventLoop *loop, const muduo::net::InetAddress &addr);
 
@@ -895,7 +896,8 @@ namespace websocket {
 		bool parseWebSocketPacket();
 
 	private:
-		type m_response;
+		requestType m_request;
+		responseType m_response;
 		muduo::net::EventLoop *m_loop;
 		muduo::net::TcpClient m_client;
 	};

@@ -29,8 +29,26 @@ namespace websocket {
 
 	}
 
+	//eg:
+	/*
+	std::string =
+	GET /realtime HTTP/1.1\r\n
+	Host: 127.0.0.1:9989\r\n
+	Connection: Upgrade\r\n
+	Pragma: no-cache\r\n
+	Cache-Control: no-cache\r\n
+	User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)\r\n
+	Upgrade: websocket\r\n
+	Origin: http://xyz.com\r\n
+	Sec-WebSocket-Version: 13\r\n
+	Accept-Encoding: gzip, deflate, br\r\n
+	Accept-Language: zh-CN,zh;q=0.9,en;q=0.8\r\n
+	Sec-WebSocket-Key: IqcAWodjyPDJuhGgZwkpKg==\r\n
+	Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits\r\n
+	\r\n
+	*/
 	size_t WebSocketClient::constructRequestPacket(const std::string &packet) {
-		m_request.consume(packet.c_str(), packet.length());
+		m_request.consume(packet.c_str(), packet.size());
 	}
 
 	bool WebSocketClient::sendRequestHandshake() {
