@@ -25,7 +25,8 @@
  *
  */
 
-#pragma one
+#ifndef _RESPONSE_H_
+#define _RESPONSE_H_
 
 #include <iostream>
 #include <string>
@@ -179,3 +180,5 @@ namespace http {
 
 	} // namespace parser
 } // namespace http
+
+#endif

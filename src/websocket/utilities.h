@@ -25,7 +25,8 @@
  *
  */
 
-#pragma one
+#ifndef _UTILITIES_H_
+#define _UTILITIES_H_
 
 #include <string>
 #include <algorithm>
@@ -246,3 +247,5 @@ namespace utility {
 	};
 
 } // namespace utility
+
+#endif

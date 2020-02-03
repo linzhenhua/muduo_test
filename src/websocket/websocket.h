@@ -25,7 +25,8 @@
  *
  */
 
-#pragma one
+#ifndef _WEBSOCKET_H_
+#define _WEBSOCKET_H_
 
 #include <string>
 #include <algorithm>
@@ -954,3 +955,5 @@ namespace websocket {
 		muduo::net::TcpServer m_server;
 	};
 }
+
+#endif // !WEBSOCKET_H_

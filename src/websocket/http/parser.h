@@ -25,7 +25,8 @@
  *
  */
 
-#pragma one
+#ifndef _PARSER_H_ 
+#define _PARSER_H_
 
 #include <algorithm>
 #include <map>
@@ -615,3 +616,5 @@ namespace http {
 
 	} // namespace parser
 } // namespace http
+
+#endif

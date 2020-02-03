@@ -25,7 +25,8 @@
  *
  */
 
-#pragma one
+#ifndef _REQUEST_H_
+#define _REQUEST_H_
 
 #include <string>
 #include <memory>
@@ -115,3 +116,5 @@ namespace http {
 
 	} // namespace parser
 } // namespace http
+
+#endif

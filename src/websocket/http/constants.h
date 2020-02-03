@@ -25,7 +25,8 @@
  *
  */
 
-#pragma one
+#ifndef _CONSTANTS_H_
+#define _CONSTANTS_H_
 
 #include <exception>
 #include <map>
@@ -301,3 +302,5 @@ namespace http {
 		status_code::value  m_error_code;
 	};
 }
+
+#endif

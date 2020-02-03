@@ -33,7 +33,8 @@ under the same license as the original, which is listed below.
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma one
+#ifndef _SHA1_H_
+#define _SHA1_H_
 
 namespace sha1 {
 
@@ -173,3 +174,5 @@ namespace sha1 {
 	}
 
 } // namespace sha1
+
+#endif
