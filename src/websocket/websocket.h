@@ -138,7 +138,7 @@ namespace websocket {
 			 * @return Whether or not the opcode is invalid.
 			 */
 			inline bool invalid(value v) {
-				return (v > 0xF || v < 0);
+				return (v > 0xF /*|| v < 0*/);
 			}
 
 			/// Check if an opcode is for a control frame
@@ -337,7 +337,8 @@ namespace websocket {
 		 * @param [in] value Value to set it to.
 		 */
 		inline void set_fin(basic_header &h, bool value) {
-			h.b0 = (value ? h.b0 | BHB0_FIN : h.b0 & ~BHB0_FIN);
+			//h.b0 = (value ? h.b0 | BHB0_FIN : h.b0 & ~BHB0_FIN);
+			h.b0 = static_cast<uint8_t>((value ? h.b0 | BHB0_FIN : h.b0 & ~BHB0_FIN));
 		}
 
 		/// check whether the frame's RSV1 bit is set
