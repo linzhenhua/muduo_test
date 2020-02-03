@@ -39,7 +39,7 @@ namespace http {
 	namespace parser {
 
 		namespace state {
-			enum value {
+			enum class value {
 				method,
 				resource,
 				version,
@@ -48,7 +48,7 @@ namespace http {
 		}
 
 		namespace body_encoding {
-			enum value {
+			enum class value {
 				unknown,
 				plain,
 				chunked
@@ -394,7 +394,7 @@ namespace http {
 				: m_header_bytes(0)
 				, m_body_bytes_needed(0)
 				, m_body_bytes_max(max_body_size)
-				, m_body_encoding(body_encoding::unknown) {}
+				, m_body_encoding(body_encoding::value::unknown) {}
 
 			/// Get the HTTP version string
 			/**

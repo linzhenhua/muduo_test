@@ -36,9 +36,9 @@ namespace http {
 	namespace parser {
 
 		inline size_t response::consume(char const *buf, size_t len) {
-			if (m_state == DONE) { return 0; }
+			if (m_state == state::DONE) { return 0; }
 
-			if (m_state == BODY) {
+			if (m_state == state::BODY) {
 				return this->process_body(buf, len);
 			}
 
@@ -82,7 +82,7 @@ namespace http {
 
 				if (end - begin == 0) {
 					// we got a blank line
-					if (m_state == RESPONSE_LINE) {
+					if (m_state == state::RESPONSE_LINE) {
 						throw exception("Incomplete Request", status_code::bad_request);
 					}
 
@@ -101,7 +101,7 @@ namespace http {
 						}
 					}
 
-					m_state = BODY;
+					m_state = state::BODY;
 
 					// calc header bytes processed (starting bytes - bytes left)
 					size_t read = (
@@ -119,9 +119,9 @@ namespace http {
 
 					return read;
 				} else {
-					if (m_state == RESPONSE_LINE) {
+					if (m_state == state::RESPONSE_LINE) {
 						this->process(begin, end);
-						m_state = HEADERS;
+						m_state = state::HEADERS;
 					} else {
 						this->process_header(begin, end);
 					}
@@ -230,7 +230,7 @@ namespace http {
 			if (m_read == 0) {
 				//m_body.append(buf,len);
 				//return len;
-				m_state = DONE;
+				m_state = state::DONE;
 				return 0;
 			}
 
@@ -241,7 +241,7 @@ namespace http {
 				// if we have more bytes than we need read, read only the amount needed
 				// then set done state
 				to_read = m_read;
-				m_state = DONE;
+				m_state = state::DONE;
 			} else {
 				// we need more bytes than are available, read them all
 				to_read = len;

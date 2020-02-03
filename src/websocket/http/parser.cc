@@ -125,7 +125,7 @@ namespace http {
 									status_code::request_entity_too_large);
 				}
 
-				m_body_encoding = body_encoding::plain;
+				m_body_encoding = body_encoding::value::plain;
 				return true;
 			} else if (get_header("Transfer-Encoding") == "chunked") {
 				// TODO
@@ -137,12 +137,12 @@ namespace http {
 		}
 
 		inline size_t parser::process_body(char const *buf, size_t len) {
-			if (m_body_encoding == body_encoding::plain) {
+			if (m_body_encoding == body_encoding::value::plain) {
 				size_t processed = (std::min)(m_body_bytes_needed, len);
 				m_body.append(buf, processed);
 				m_body_bytes_needed -= processed;
 				return processed;
-			} else if (m_body_encoding == body_encoding::chunked) {
+			} else if (m_body_encoding == body_encoding::value::chunked) {
 				// TODO: 
 				throw exception("Unexpected body encoding",
 								status_code::internal_server_error);

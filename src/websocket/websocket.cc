@@ -1,31 +1,39 @@
 #include <functional>
-#include <functional>
 
 #include "websocket.h"
 #include "../../include/muduo/base/Logging.h"
 
+using std::placeholders::_1;
+using std::placeholders::_2;
+using std::placeholders::_3;
+
+using namespace muduo;
+using namespace muduo::net;
 
 namespace websocket {
 
-	WebSocketClient::WebSocketClient(muduo::net::EventLoop *loop, const muduo::net::InetAddress &addr)
-		: m_response()
-		, m_loop(loop)
-		, m_client(loop, addr, "WebSocketClient") {
-		using namespace std::placeholders;
-		//设置回调函数
+	WebSocketClient::WebSocketClient(EventLoop *loop,
+									 const InetAddress &addr) :
+	//m_request(),
+	//m_response(),
+	m_loop(loop),
+	m_client(loop, addr, "WebSocket"),
+	m_is_server_support_websocket(false),
+	m_state(websocketState::disconnected) {
+		//注册回调函数
 		m_client.setConnectionCallback(std::bind(&WebSocketClient::onConnection, this, _1));
-		m_client.setMessageCallback(std::bind(&WebSocketClient::onMessage, this, _1, _2, _3));
+		m_client.setMessageCallback(std::bind(&onMessage, this, _1, _2, _3));
 	}
 
-	void WebSocketClient::onConnection(const muduo::net::TcpConnectionPtr &conn) {
+	void WebSocketClient::onConnection(const TcpConnectionPtr &conn) {
 		LOG_TRACE << conn->peerAddress().toIpPort() << " -> "
 			<< conn->localAddress().toIpPort() << " is "
 			<< (conn->connected() ? "UP" : "DOWN");
 		conn->setTcpNoDelay(true);
 	}
 
-	void WebSocketClient::onMessage(const muduo::net::TcpConnectionPtr &conn, 
-									muduo::net::Buffer *buf, muduo::Timestamp time) {
+	void WebSocketClient::onMessage(const TcpConnectionPtr &conn, 
+									Buffer *buf, Timestamp time) {
 
 	}
 
@@ -98,7 +106,7 @@ namespace websocket {
 
 		//握手包分包策略：\r\n
 		//需要判断是握手包还是websokcet包
-		if () {
+		if (1) {
 			m_isRequestHandshake = true;
 		} else {
 

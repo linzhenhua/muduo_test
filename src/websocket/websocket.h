@@ -859,6 +859,8 @@ namespace websocket {
 
 	} // namespace frame
 
+	//步骤：收到数据，根据协议解析数据，然后提取相关信息，然后状态管理，更新状态机，然后返回数据。
+
 	//websocket客户端
 	class WebSocketClient : public utility::noncopyable {
 	public:
@@ -871,7 +873,7 @@ namespace websocket {
 
 	private:
 		//建立连接成功时的回调函数
-		void onConnection(const muduo::net::TcpConnectionPtr& conn);
+		void onConnection(const muduo::net::TcpConnectionPtr& conn);   //设置tcp三次握手完回调的函数，可以设置tcp的属性
 
 		//收到消息时的回调函数
 		void onMessage(const muduo::net::TcpConnectionPtr& conn, muduo::net::Buffer* buf, muduo::Timestamp time);
@@ -896,10 +898,18 @@ namespace websocket {
 		bool parseWebSocketPacket();
 
 	private:
+		enum class websocketState {
+			connecting,
+			connected,
+			disconnected
+		};
+
 		requestType m_request;
 		responseType m_response;
 		muduo::net::EventLoop *m_loop;
 		muduo::net::TcpClient m_client;
+		bool m_is_server_support_websocket;
+		websocketState m_state;
 	};
 
 	//解析websocket的类
