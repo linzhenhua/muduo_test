@@ -356,7 +356,8 @@ namespace websocket {
 		 * @param [in] value Value to set it to.
 		 */
 		inline void set_rsv1(basic_header &h, bool value) {
-			h.b0 = (value ? h.b0 | BHB0_RSV1 : h.b0 & ~BHB0_RSV1);
+			//h.b0 = (value ? h.b0 | BHB0_RSV1 : h.b0 & ~BHB0_RSV1);
+			h.b0 = static_cast<uint8_t>((value ? h.b0 | BHB0_RSV1 : h.b0 & ~BHB0_RSV1));
 		}
 
 		/// check whether the frame's RSV2 bit is set
@@ -374,7 +375,8 @@ namespace websocket {
 		 * @param [in] value Value to set it to.
 		 */
 		inline void set_rsv2(basic_header &h, bool value) {
-			h.b0 = (value ? h.b0 | BHB0_RSV2 : h.b0 & ~BHB0_RSV2);
+			//h.b0 = (value ? h.b0 | BHB0_RSV2 : h.b0 & ~BHB0_RSV2);
+			h.b0 = static_cast<uint8_t>((value ? h.b0 | BHB0_RSV2 : h.b0 & ~BHB0_RSV2));
 		}
 
 		/// check whether the frame's RSV3 bit is set
@@ -392,7 +394,8 @@ namespace websocket {
 		 * @param [in] value Value to set it to.
 		 */
 		inline void set_rsv3(basic_header &h, bool value) {
-			h.b0 = (value ? h.b0 | BHB0_RSV3 : h.b0 & ~BHB0_RSV3);
+			//h.b0 = (value ? h.b0 | BHB0_RSV3 : h.b0 & ~BHB0_RSV3);
+			h.b0 = static_cast<uint8_t>((value ? h.b0 | BHB0_RSV3 : h.b0 & ~BHB0_RSV3));
 		}
 
 		/// Extract opcode from basic header
@@ -419,7 +422,8 @@ namespace websocket {
 		 * @param value Value to set it to.
 		 */
 		inline void set_masked(basic_header &h, bool value) {
-			h.b1 = (value ? h.b1 | BHB1_MASK : h.b1 & ~BHB1_MASK);
+			//h.b1 = (value ? h.b1 | BHB1_MASK : h.b1 & ~BHB1_MASK);
+			h.b1 = static_cast<uint8_t>((value ? h.b1 | BHB1_MASK : h.b1 & ~BHB1_MASK));
 		}
 
 		/// Extracts the raw payload length specified in the basic header
@@ -832,7 +836,7 @@ namespace websocket {
 		inline size_t byte_mask_circ(uint8_t *input, uint8_t *output, size_t length,
 									 size_t prepared_key) {
 			uint32_converter key;
-			key.i = prepared_key;
+			key.i = static_cast<uint32_t>(prepared_key);
 
 			for (size_t i = 0; i < length; ++i) {
 				output[i] = input[i] ^ key.c[i % 4];

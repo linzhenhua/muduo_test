@@ -22,7 +22,7 @@ namespace websocket {
 	m_state(websocketState::disconnected) {
 		//×¢²á»Øµ÷º¯Êý
 		m_client.setConnectionCallback(std::bind(&WebSocketClient::onConnection, this, _1));
-		m_client.setMessageCallback(std::bind(&onMessage, this, _1, _2, _3));
+		m_client.setMessageCallback(std::bind(&WebSocketClient::onMessage, this, _1, _2, _3));
 	}
 
 	void WebSocketClient::onConnection(const TcpConnectionPtr &conn) {
