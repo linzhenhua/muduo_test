@@ -118,7 +118,7 @@ namespace http {
 
 	/// HTTP Status codes
 	namespace status_code {
-		enum value {
+		enum value : uint32_t {
 			uninitialized = 0,
 
 			continue_code = 100,

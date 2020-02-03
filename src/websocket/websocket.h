@@ -84,7 +84,7 @@ namespace websocket {
 		 * WebSocket Opcodes are 4 bits. See RFC6455 section 5.2.
 		 */
 		namespace opcode {
-			enum value {
+			enum value : uint8_t {
 				continuation = 0x0,
 				text = 0x1,
 				binary = 0x2,
