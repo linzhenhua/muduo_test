@@ -1,12 +1,17 @@
+#include <stdio.h>
+
 #include <functional>
 
 #include "websocket.h"
+#include "http/constants.h"
 #include "../../include/muduo/base/Logging.h"
+#include "../../include/muduo/net/TcpConnection.h"
 
 using std::placeholders::_1;
 using std::placeholders::_2;
 using std::placeholders::_3;
 
+using namespace std::literals;
 using namespace muduo;
 using namespace muduo::net;
 
@@ -14,12 +19,12 @@ namespace websocket {
 
 	WebSocketClient::WebSocketClient(EventLoop *loop,
 									 const InetAddress &addr) :
-	//m_request(),
-	//m_response(),
-	m_loop(loop),
-	m_client(loop, addr, "WebSocket"),
-	m_is_server_support_websocket(false),
-	m_state(websocketState::disconnected) {
+		//m_request(),
+		//m_response(),
+		m_loop(loop),
+		m_client(loop, addr, "WebSocketClient"),
+		m_is_server_support_websocket(false),
+		m_state(websocketState::disconnected) {
 		//注册回调函数
 		m_client.setConnectionCallback(std::bind(&WebSocketClient::onConnection, this, _1));
 		m_client.setMessageCallback(std::bind(&WebSocketClient::onMessage, this, _1, _2, _3));
@@ -29,60 +34,104 @@ namespace websocket {
 		LOG_TRACE << conn->peerAddress().toIpPort() << " -> "
 			<< conn->localAddress().toIpPort() << " is "
 			<< (conn->connected() ? "UP" : "DOWN");
+
+		if (!conn->connected()) {
+			m_loop->quit();
+		}
+
 		conn->setTcpNoDelay(true);
+
+		//构造websocket握手包
+		std::string_view request_msg =
+			"GET /lzh HTTP/1.1\r\n \
+			Host: 127.0.0.1 : 9989\r\n \
+			Connection : Upgrade\r\n \
+			Upgrade : websocket\r\n \
+			Origin : http://xyz.com\r\n \
+		    Sec - WebSocket - Version : 13\r\n \
+			Sec - WebSocket - Key: IqcAWodjyPDJuhGgZwkpKg == \r\n \
+			\r\n"sv;
+		constructRequestPacket(request_msg);
+
+		//发送websocket握手包
+		sendRequestHandshake();
+
+		m_state = websocketState::connecting;
 	}
 
-	void WebSocketClient::onMessage(const TcpConnectionPtr &conn, 
+	void WebSocketClient::onMessage(const TcpConnectionPtr &conn,
 									Buffer *buf, Timestamp time) {
+		if (m_state == websocketState::connecting) {   //这个状态表明HTTP握手阶段
+			parseReponseHandshake(buf->retrieveAllAsString());
+			return;
+		} else if (m_state == websocketState::connected) {  //这个状态表明websocket数据交互
+			
+		} else {
+			LOG_TRACE << "what happened?";
+		}
+	}
+
+	void WebSocketClient::constructRequestPacket(const std::string_view &packet) {
+		m_request.consume(packet.data(), packet.size());
+	}
+
+	void WebSocketClient::sendRequestHandshake() {
+		std::string reqStr(m_request.raw());
+		m_client.connection()->send(reqStr.c_str(), reqStr.length());
 
 	}
 
-	//eg:
-	/*
-	std::string =
-	GET /realtime HTTP/1.1\r\n
-	Host: 127.0.0.1:9989\r\n
-	Connection: Upgrade\r\n
-	Pragma: no-cache\r\n
-	Cache-Control: no-cache\r\n
-	User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)\r\n
-	Upgrade: websocket\r\n
-	Origin: http://xyz.com\r\n
-	Sec-WebSocket-Version: 13\r\n
-	Accept-Encoding: gzip, deflate, br\r\n
-	Accept-Language: zh-CN,zh;q=0.9,en;q=0.8\r\n
-	Sec-WebSocket-Key: IqcAWodjyPDJuhGgZwkpKg==\r\n
-	Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits\r\n
-	\r\n
-	*/
-	size_t WebSocketClient::constructRequestPacket(const std::string &packet) {
-		m_request.consume(packet.c_str(), packet.size());
-	}
+	void WebSocketClient::parseReponseHandshake(const std::string &handshake_data) {
+		m_response.consume(handshake_data.c_str(), handshake_data.length());
 
-	bool WebSocketClient::sendRequestHandshake() {
+		if (m_response.headers_ready()) {  //解析HTTP头部完成
+			if (m_response.get_version() == std::string("HTTP/1.1") &&
+				m_response.get_status_code() == http::status_code::switching_protocols &&
+				m_response.get_status_msg() == http::status_code::get_string(http::status_code::switching_protocols) &&
+				!m_response.get_header(std::string("Upgrade")).empty() &&
+				!m_response.get_header(std::string("Connection")).empty() &&
+				!m_response.get_header(std::string("Sec-WebSocket-Accept")).empty() &&
+				m_response.get_header(std::string("Upgrade")) == std::string("websocket") &&
+				m_response.get_header(std::string("Connection")) == std::string("Upgrade")) {
+				m_is_server_support_websocket = true;
+				m_state = websocketState::connected;
 
-	}
+				LOG_TRACE << "websocket connected";
 
-	bool WebSocketClient::parseReponseHandshake(std::string responseData) {
+				//这里发送websocket数据或者开个线程接收用户输入
+			} else {
+				LOG_TRACE << "server not support websocket";
 
+				m_client.disconnect();  //主动断开连接
+				m_is_server_support_websocket = false;
+				m_state = websocketState::disconnected;
+				m_loop->quit();
+
+				::exit(0);
+			}
+		}
 	}
 
 	bool WebSocketClient::constructWebSocketPacket() {
 
 	}
 
-	bool WebSocketClient::parseWebSocketPacket() {
+	bool WebSocketClient::parseWebSocketPacket(const std::string &websocket_packet) {
+		if (buf->readableBytes() >= frame::BASIC_HEADER_LENGTH) {
 
+		} else {
+
+		}
 	}
 
 	void WebSocketClient::start() {
-
+		m_client.connect();
 	}
 
 	WebSocketServer::WebSocketServer(muduo::net::EventLoop *loop, const muduo::net::InetAddress &addr)
 		: m_isRequestHandshake(false)
 		//, m_response()  //这一行加也行，不加也行
-		, m_loop(loop) 
+		, m_loop(loop)
 		, m_server(loop, addr, "WebSocketServer") {
 		using namespace std::placeholders;
 		//设置回调函数
@@ -98,7 +147,7 @@ namespace websocket {
 		conn->setTcpNoDelay(true);
 	}
 
-	void WebSocketServer::onMessage(const muduo::net::TcpConnectionPtr &conn, 
+	void WebSocketServer::onMessage(const muduo::net::TcpConnectionPtr &conn,
 									muduo::net::Buffer *buf, muduo::Timestamp time) {
 		if (buf->findCRLF() != nullptr) {
 			buf->retrieveAll();

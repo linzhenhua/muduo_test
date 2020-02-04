@@ -53,13 +53,32 @@ namespace websocket {
  * for reading, writing, and manipulating binary encoded WebSocket frames.
  */
 	namespace frame {
-
+		/*
+		 0               1               2               3
+		 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+		+-+-+-+-+-------+-+-------------+-------------------------------+
+		|F|R|R|R| opcode|M| Payload len |    Extended payload length    |
+		|I|S|S|S|  (4)  |A|     (7)     |             (16/64)           |
+		|N|V|V|V|       |S|             |   (if payload len==126/127)   |
+		| |1|2|3|       |K|             |                               |
+		+-+-+-+-+-------+-+-------------+ - - - - - - - - - - - - - - - +
+		|     Extended payload length continued, if payload len == 127  |
+		+ - - - - - - - - - - - - - - - +-------------------------------+
+		|                               |Masking-key, if MASK set to 1  |
+		+-------------------------------+-------------------------------+
+		| Masking-key (continued)       |          Payload Data         |
+		+-------------------------------- - - - - - - - - - - - - - - - +
+		:                     Payload Data continued ...                :
+		+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
+		|                     Payload Data continued ...                |
+		+---------------------------------------------------------------+
+		*/
 		/// Minimum length of a WebSocket frame header.
-		static unsigned int const BASIC_HEADER_LENGTH = 2;
+		static unsigned int const BASIC_HEADER_LENGTH = 2;  //FIN-->Payload len 1
 		/// Maximum length of a WebSocket header
-		static unsigned int const MAX_HEADER_LENGTH = 14;
+		static unsigned int const MAX_HEADER_LENGTH = 14;   //FIN-->Masking-key 2
 		/// Maximum length of the variable portion of the WebSocket header
-		static unsigned int const MAX_EXTENDED_HEADER_LENGTH = 12;
+		static unsigned int const MAX_EXTENDED_HEADER_LENGTH = 12; // 2 - 1
 
 		/// Two byte conversion union
 		union uint16_converter {
@@ -298,7 +317,7 @@ namespace websocket {
 		size_t get_header_len(basic_header const &);
 		unsigned int get_masking_key_offset(basic_header const &);
 
-		std::string write_header(basic_header const &, extended_header const &);
+		std::string prepare_header(basic_header const &, extended_header const &);
 		masking_key_type get_masking_key(basic_header const &, extended_header const &);
 		uint16_t get_extended_size(extended_header const &);
 		uint64_t get_jumbo_size(extended_header const &);
@@ -868,7 +887,7 @@ namespace websocket {
 	//步骤：收到数据，根据协议解析数据，然后提取相关信息，然后状态管理，更新状态机，然后返回数据。
 
 	//websocket客户端
-	class WebSocketClient : public utility::noncopyable {
+	class WebSocketClient final : public utility::noncopyable {
 	public:
 		using responseType = http::parser::response;
 		using requestType = http::parser::request;
@@ -879,7 +898,7 @@ namespace websocket {
 
 	private:
 		//建立连接成功时的回调函数
-		void onConnection(const muduo::net::TcpConnectionPtr& conn);   //设置tcp三次握手完回调的函数，可以设置tcp的属性
+		void onConnection(const muduo::net::TcpConnectionPtr& conn);   //设置tcp三次握手完回调的函数，可以设置tcp的属性,HTTP握手
 
 		//收到消息时的回调函数
 		void onMessage(const muduo::net::TcpConnectionPtr& conn, muduo::net::Buffer* buf, muduo::Timestamp time);
@@ -889,29 +908,31 @@ namespace websocket {
 		 * @param packet必须符合http头请求格式，否则抛异常（抛异常说明有bugs，需要修复）
 		 * @return 处理的字节数
 		*/
-		size_t constructRequestPacket(const std::string &packet);
+		void constructRequestPacket(const std::string_view &packet);
 
 		//发送请求握手包
-		bool sendRequestHandshake();
+		void sendRequestHandshake();
 
 		//解析响应握手包
-		bool parseReponseHandshake(std::string responseData);
+		void parseReponseHandshake(const std::string &handshake_data);
 
 		//构造websocket包
 		bool constructWebSocketPacket();
 
 		//解析websocket包
-		bool parseWebSocketPacket();
+		bool parseWebSocketPacket(const std::string &websocket_packet);
 
 	private:
-		enum class websocketState {
-			connecting,
-			connected,
-			disconnected
+		//状态管理
+		enum class websocketState : uint32_t {
+			connecting,  //HTTP握手中
+			connected,   //握手完毕
+			disconnected //断开连接
 		};
 
 		requestType m_request;
 		responseType m_response;
+
 		muduo::net::EventLoop *m_loop;
 		muduo::net::TcpClient m_client;
 		bool m_is_server_support_websocket;
@@ -919,7 +940,7 @@ namespace websocket {
 	};
 
 	//解析websocket的类
-	class WebSocketServer : public utility::noncopyable {
+	class WebSocketServer final : public utility::noncopyable {
 	public:
 		using type = http::parser::request;
 
