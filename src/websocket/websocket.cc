@@ -65,7 +65,18 @@ namespace websocket {
 			parseReponseHandshake(buf->retrieveAllAsString());
 			return;
 		} else if (m_state == websocketState::connected) {  //这个状态表明websocket数据交互
-			
+			if (buf->readableBytes() >= frame::BASIC_HEADER_LENGTH) {
+				frame::uint16_converter temp16;
+				temp16.i = buf->readInt16();
+				m_base_header.b0 = temp16.c[0];
+				m_base_header.b1 = temp16.c[1];
+
+				//解析出payload_len
+				uint8_t payload_len = frame::get_basic_size(m_base_header);
+			} else {
+				return;
+			}
+			parseWebSocketPacket(buf->retrieveAllAsString());
 		} else {
 			LOG_TRACE << "what happened?";
 		}
@@ -116,12 +127,8 @@ namespace websocket {
 
 	}
 
-	bool WebSocketClient::parseWebSocketPacket(const std::string &websocket_packet) {
-		if (buf->readableBytes() >= frame::BASIC_HEADER_LENGTH) {
+	void WebSocketClient::parseWebSocketPacket(const std::string &websocket_packet) {
 
-		} else {
-
-		}
 	}
 
 	void WebSocketClient::start() {

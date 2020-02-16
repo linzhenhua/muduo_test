@@ -892,6 +892,9 @@ namespace websocket {
 		using responseType = http::parser::response;
 		using requestType = http::parser::request;
 
+		using baseHeadType = frame::basic_header;
+		using extendHeadType = frame::extended_header;
+
 		WebSocketClient(muduo::net::EventLoop *loop, const muduo::net::InetAddress &addr);
 
 		void start();
@@ -920,7 +923,7 @@ namespace websocket {
 		bool constructWebSocketPacket();
 
 		//解析websocket包
-		bool parseWebSocketPacket(const std::string &websocket_packet);
+		void parseWebSocketPacket(const std::string &websocket_packet);
 
 	private:
 		//状态管理
@@ -932,6 +935,8 @@ namespace websocket {
 
 		requestType m_request;
 		responseType m_response;
+		baseHeadType m_base_header;
+		extendHeadType m_extend_header;
 
 		muduo::net::EventLoop *m_loop;
 		muduo::net::TcpClient m_client;
